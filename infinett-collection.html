@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INFINETT — Design Collection</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Cinzel+Decorative:wght@900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --acid: #c8f000;
+    --magenta: #e91e8c;
+    --violet: #9b00ff;
+    --gold: #f5c842;
+    --fire: #ff6a00;
+    --cream: #fff8e7;
+    --ink: #0a0a0a;
+    --cosmic: #0d0020;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cosmic);
+    color: var(--cream);
+    font-family: 'Space Mono', monospace;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ─────────────────────────────── */
+  header {
+    text-align: center;
+    padding: 60px 20px 30px;
+    position: relative;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, #9b00ff44 0%, transparent 70%);
+  }
+  .brand-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: var(--magenta);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .main-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 12vw, 120px);
+    line-height: 0.9;
+    letter-spacing: 4px;
+    background: linear-gradient(135deg, var(--acid) 0%, var(--gold) 40%, var(--magenta) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    z-index: 1;
+  }
+  .subtitle {
+    font-size: 10px;
+    letter-spacing: 8px;
+    color: #ffffff55;
+    margin-top: 10px;
+    text-transform: uppercase;
+  }
+
+  /* ── SECTION LABELS ─────────────────────── */
+  .section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 30px;
+  }
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: var(--magenta);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+    color: var(--cream);
+  }
+
+  /* ── MOOD BOARD ──────────────────────────── */
+  .moodboard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    gap: 3px;
+    background: #111;
+    border: 1px solid #ffffff11;
+  }
+
+  .mood-cell {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .mood-cell:hover { transform: scale(1.04); z-index: 2; }
+
+  .mood-cell.acid { background: var(--acid); color: var(--ink); }
+  .mood-cell.magenta { background: var(--magenta); color: white; }
+  .mood-cell.violet { background: var(--violet); color: white; }
+  .mood-cell.gold { background: var(--gold); color: var(--ink); }
+  .mood-cell.fire { background: linear-gradient(180deg, var(--fire), #ffd200); color: var(--ink); }
+  .mood-cell.dark { background: #0a0a0a; color: var(--acid); border: 1px solid #ffffff11; }
+  .mood-cell.cosmic { background: linear-gradient(135deg, #0d0020, #290060); color: var(--violet); }
+  .mood-cell.cream { background: var(--cream); color: var(--ink); }
+  .mood-cell.wide { grid-column: span 2; aspect-ratio: 2/1; }
+  .mood-cell.tall { grid-row: span 2; aspect-ratio: 0.5/1; }
+
+  .mood-icon { font-size: 36px; margin-bottom: 10px; }
+  .mood-label { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 3px; }
+  .mood-sub { font-size: 9px; letter-spacing: 2px; opacity: 0.6; margin-top: 4px; }
+
+  .drip-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    letter-spacing: 2px;
+    line-height: 1;
+    background: linear-gradient(180deg, var(--violet), var(--magenta));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 4px 0px #9b00ff88);
+  }
+
+  .infinity-symbol {
+    font-size: 72px;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--gold), var(--magenta));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: pulse 3s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  /* ── DESIGN CARDS ────────────────────────── */
+  .designs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .design-card {
+    background: #0f0f1a;
+    border: 1px solid #ffffff15;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .design-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--magenta), var(--violet), var(--acid));
+  }
+
+  .design-canvas {
+    width: 100%;
+    aspect-ratio: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* ── DESIGN 1: ZODIAC CHAOS ──────────────── */
+  .d1-bg {
+    background: 
+      radial-gradient(circle at 30% 70%, #c8f00033 0%, transparent 50%),
+      radial-gradient(circle at 70% 30%, #e91e8c22 0%, transparent 50%),
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 20px,
+        #9b00ff11 20px,
+        #9b00ff11 21px
+      ),
+      #050510;
+  }
+
+  .zodiac-ring {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    border: 2px solid var(--magenta);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: spin 20s linear infinite;
+    box-shadow: 0 0 40px #e91e8c44, inset 0 0 40px #e91e8c22;
+  }
+  .zodiac-ring::before {
+    content: '♈ ♉ ♊ ♋ ♌ ♍ ♎ ♏ ♐ ♑ ♒ ♓';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    font-size: 13px;
+    color: var(--magenta);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 12px;
+    animation: counter-spin 20s linear infinite;
+    opacity: 0.5;
+  }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes counter-spin { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+
+  .dollar-lv {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  .dollar-lv .big-dollar {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 110px;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 3px var(--acid);
+    text-shadow: 6px 6px 0 var(--magenta);
+    position: relative;
+  }
+  .dollar-lv .lv-pattern {
+    position: absolute;
+    inset: 0;
+    font-size: 12px;
+    color: var(--gold);
+    opacity: 0.4;
+    overflow: hidden;
+    letter-spacing: 4px;
+    line-height: 14px;
+    word-break: break-all;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 10px;
+  }
+
+  .graffiti-tag {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 6px;
+    color: var(--acid);
+    text-shadow: 2px 2px 0 var(--violet);
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  /* ── DESIGN 2: SYMBOL CELESTIAL ─────────── */
+  .d2-bg {
+    background:
+      radial-gradient(circle at 50% 50%, #f5c84215 0%, transparent 60%),
+      radial-gradient(circle at 20% 80%, #ff6a0022 0%, transparent 40%),
+      #030308;
+  }
+
+  .star-field {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .star {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle var(--d, 3s) ease-in-out infinite;
+    opacity: var(--o, 0.5);
+  }
+  @keyframes twinkle { 0%, 100% { opacity: var(--o, 0.5); } 50% { opacity: 0.1; } }
+
+  .infinity-center {
+    font-size: 120px;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--gold);
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 0 30px var(--gold));
+    animation: glow 3s ease-in-out infinite alternate;
+  }
+  @keyframes glow {
+    from { filter: drop-shadow(0 0 20px var(--gold)); }
+    to { filter: drop-shadow(0 0 60px var(--magenta)); }
+  }
+
+  .symbol-grid {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    opacity: 0.12;
+    pointer-events: none;
+  }
+  .symbol-grid span {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    color: var(--gold);
+  }
+
+  /* ── DESIGN 3: PHARAOH FIRE ──────────────── */
+  .d3-bg {
+    background:
+      radial-gradient(ellipse at 50% 100%, #ff6a0044 0%, transparent 60%),
+      radial-gradient(ellipse at 30% 30%, #9b00ff22 0%, transparent 50%),
+      #080500;
+  }
+
+  .pharaoh-bust {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  .pharaoh-crown {
+    font-size: 52px;
+    line-height: 1;
+    color: var(--gold);
+    filter: drop-shadow(0 0 20px var(--gold));
+    display: block;
+    margin-bottom: -10px;
+  }
+  .pharaoh-face {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 14px;
+    color: var(--gold);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    line-height: 2;
+  }
+  .eye-of-ra {
+    font-size: 48px;
+    filter: drop-shadow(0 0 15px var(--fire));
+    animation: eyeGlow 2s ease-in-out infinite alternate;
+  }
+  @keyframes eyeGlow {
+    from { filter: drop-shadow(0 0 10px var(--gold)); }
+    to { filter: drop-shadow(0 0 40px var(--fire)); }
+  }
+
+  .fire-base {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 80px;
+    background: linear-gradient(180deg, transparent, #ff6a0066, #ffd200aa);
+    animation: flicker 0.5s ease-in-out infinite alternate;
+  }
+  @keyframes flicker {
+    from { opacity: 0.7; transform: scaleY(1); }
+    to { opacity: 1; transform: scaleY(1.1); }
+  }
+
+  .hex-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34L28 66zM28 100L0 84V50l28-16 28 16v34L28 100z' fill='none' stroke='%23f5c842' stroke-width='1'/%3E%3C/svg%3E");
+  }
+
+  /* ── DESIGN 4: COMBINED DROP ─────────────── */
+  .d4-bg {
+    background:
+      linear-gradient(135deg, #0d0020 0%, #001a0d 50%, #1a0000 100%);
+  }
+
+  .chaos-layers {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .chaos-stripe {
+    position: absolute;
+    height: 3px;
+    left: -10%;
+    right: -10%;
+    opacity: 0.3;
+    transform-origin: center;
+  }
+
+  .combined-text {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  .combined-text .line1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 10px;
+    color: var(--magenta);
+    display: block;
+  }
+  .combined-text .line2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    line-height: 0.85;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, var(--acid), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    filter: drop-shadow(0 4px 0 #c8f00066);
+  }
+  .combined-text .line3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 6px;
+    color: #ffffff44;
+    display: block;
+    margin-top: 8px;
+  }
+  .combined-symbols {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+    font-size: 24px;
+  }
+  .combined-symbols span {
+    color: var(--violet);
+    filter: drop-shadow(0 0 8px var(--violet));
+    animation: symbol-float var(--d, 3s) ease-in-out infinite;
+  }
+  @keyframes symbol-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  /* ── CARD INFO ───────────────────────────── */
+  .card-info {
+    padding: 20px 24px;
+    border-top: 1px solid #ffffff0f;
+  }
+  .card-series {
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--magenta);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .card-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 2px;
+    color: var(--cream);
+    margin-bottom: 6px;
+  }
+  .card-desc {
+    font-size: 10px;
+    color: #ffffff55;
+    line-height: 1.7;
+    letter-spacing: 0.5px;
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+  }
+  .tag {
+    font-size: 8px;
+    letter-spacing: 2px;
+    padding: 4px 10px;
+    border: 1px solid #ffffff20;
+    color: #ffffff66;
+    text-transform: uppercase;
+  }
+  .tag.hot { border-color: var(--magenta); color: var(--magenta); }
+  .tag.glow { border-color: var(--acid); color: var(--acid); }
+  .tag.gold-tag { border-color: var(--gold); color: var(--gold); }
+
+  /* ── COLOR PALETTE ────────────────────────── */
+  .palette-row {
+    display: flex;
+    gap: 0;
+    height: 60px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    border: 1px solid #ffffff11;
+  }
+  .swatch {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    padding: 6px 8px;
+    font-size: 8px;
+    letter-spacing: 1px;
+    color: rgba(0,0,0,0.5);
+    font-family: 'Space Mono', monospace;
+  }
+  .swatch.light-text { color: rgba(255,255,255,0.5); }
+
+  /* ── BLUEPRINT SECTION ───────────────────── */
+  .blueprint-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: #0a0a0a;
+    padding: 2px;
+  }
+  .bp-cell {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .bp-label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--magenta);
+    text-transform: uppercase;
+  }
+  .bp-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--cream);
+  }
+  .bp-detail {
+    font-size: 9px;
+    color: #ffffff44;
+    line-height: 1.8;
+  }
+
+  /* ── FOOTER ──────────────────────────────── */
+  footer {
+    text-align: center;
+    padding: 60px 20px;
+    border-top: 1px solid #ffffff0a;
+  }
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    letter-spacing: 8px;
+    background: linear-gradient(90deg, var(--magenta), var(--violet), var(--acid));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .footer-sub {
+    font-size: 9px;
+    letter-spacing: 5px;
+    color: #ffffff22;
+    margin-top: 8px;
+  }
+
+  /* ── RESPONSIVE ──────────────────────────── */
+  @media (max-width: 700px) {
+    .designs-grid { grid-template-columns: 1fr; }
+    .moodboard { grid-template-columns: repeat(2, 1fr); }
+    .mood-cell.wide { grid-column: span 2; }
+    .blueprint-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="brand-tag">INFINETT — Design System</div>
+  <div class="main-title">COLLECTION<br>DROP</div>
+  <div class="subtitle">Zodiac × Symbol Series · 2025</div>
+</header>
+
+<!-- MOOD BOARD -->
+<div class="section">
+  <div class="section-label">01 — Mood Board</div>
+  <div class="section-title">Blueprint DNA</div>
+
+  <div class="moodboard">
+    <div class="mood-cell acid wide">
+      <div class="mood-icon">⚡</div>
+      <div class="mood-label">Acid Chaos</div>
+      <div class="mood-sub">Pop Art Foundation</div>
+    </div>
+    <div class="mood-cell cosmic tall">
+      <div class="infinity-symbol">∞</div>
+      <div class="mood-label" style="font-family:'Bebas Neue';font-size:16px;letter-spacing:4px;margin-top:10px;color:var(--gold)">Infinite</div>
+    </div>
+    <div class="mood-cell magenta">
+      <div class="mood-icon">👑</div>
+      <div class="mood-label">Luxury</div>
+      <div class="mood-sub">Status Symbols</div>
+    </div>
+    <div class="mood-cell dark">
+      <div class="drip-text">DRIP</div>
+      <div class="mood-sub" style="color:#9b00ff88">Gravity Ignored</div>
+    </div>
+    <div class="mood-cell gold">
+      <div class="mood-icon">✦</div>
+      <div class="mood-label">Celestial</div>
+      <div class="mood-sub">Star-born Energy</div>
+    </div>
+    <div class="mood-cell violet">
+      <div class="mood-icon">🔮</div>
+      <div class="mood-label">Mystic</div>
+      <div class="mood-sub">Beyond Time</div>
+    </div>
+    <div class="mood-cell fire">
+      <div class="mood-icon">🔥</div>
+      <div class="mood-label">Ablaze</div>
+      <div class="mood-sub">Rising from ash</div>
+    </div>
+    <div class="mood-cell cream">
+      <div class="mood-icon" style="font-size:24px">☥ ♈ ✦</div>
+      <div class="mood-label" style="font-size:13px">Sacred Symbols</div>
+      <div class="mood-sub" style="color:#0a0a0a88">Ancient × Modern</div>
+    </div>
+  </div>
+
+  <!-- Color Palette -->
+  <div style="margin-top: 30px;">
+    <div class="section-label" style="margin-bottom:14px">Collection Palette</div>
+    <div class="palette-row">
+      <div class="swatch" style="background:#c8f000">ACID<br>#C8F0</div>
+      <div class="swatch" style="background:#e91e8c" class="light-text">MGNT<br>#E91E</div>
+      <div class="swatch light-text" style="background:#9b00ff;color:rgba(255,255,255,0.5)">VLT<br>#9B00</div>
+      <div class="swatch" style="background:#f5c842">GOLD<br>#F5C8</div>
+      <div class="swatch" style="background:#ff6a00">FIRE<br>#FF6A</div>
+      <div class="swatch light-text" style="background:#0d0020;color:rgba(255,255,255,0.4)">CSM<br>#0D00</div>
+      <div class="swatch" style="background:#fff8e7;color:#0a0a0a88">CRM<br>#FFF8</div>
+    </div>
+  </div>
+</div>
+
+<!-- DESIGN CONCEPTS -->
+<div class="section" style="padding-top: 0;">
+  <div class="section-label">02 — Graphic Concepts</div>
+  <div class="section-title">Four Drops</div>
+
+  <div class="designs-grid">
+
+    <!-- DESIGN 1: ZODIAC DOLLAR -->
+    <div class="design-card">
+      <div class="design-canvas d1-bg">
+        <div class="zodiac-ring"></div>
+        <div class="dollar-lv">
+          <div class="big-dollar" style="position:relative;">
+            <div class="lv-pattern">LV ✦ LV ✦ LV ✦ LV ✦ LV ✦ LV ✦ LV ✦ LV ✦ LV ✦</div>
+            $
+          </div>
+        </div>
+        <div class="graffiti-tag">INFINETT</div>
+        <!-- drip effect top -->
+        <div style="position:absolute;top:0;left:0;right:0;height:40px;background:linear-gradient(180deg,var(--magenta),transparent);opacity:0.4;"></div>
+      </div>
+      <div class="card-info">
+        <div class="card-series">Zodiac Series · Drop 01</div>
+        <div class="card-name">SOVEREIGN DOLLAR</div>
+        <div class="card-desc">The zodiac ring encircles a luxury-monogram dollar sign — wealth is written in the stars. Classic pop-art drip meets celestial orbit.</div>
+        <div class="card-tags">
+          <span class="tag hot">Graffiti</span>
+          <span class="tag glow">Acid Pop</span>
+          <span class="tag">Zodiac Ring</span>
+          <span class="tag gold-tag">Luxury</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESIGN 2: INFINITY SYMBOL -->
+    <div class="design-card">
+      <div class="design-canvas d2-bg">
+        <!-- stars -->
+        <div class="star-field">
+          <div class="star" style="top:15%;left:20%;--d:2.3s;--o:0.8"></div>
+          <div class="star" style="top:25%;left:70%;--d:3.1s;--o:0.6"></div>
+          <div class="star" style="top:60%;left:15%;--d:1.8s;--o:0.9"></div>
+          <div class="star" style="top:70%;left:80%;--d:2.7s;--o:0.5"></div>
+          <div class="star" style="top:40%;left:85%;--d:3.4s;--o:0.7"></div>
+          <div class="star" style="top:80%;left:45%;--d:2.1s;--o:0.6"></div>
+          <div class="star" style="top:10%;left:55%;--d:1.5s;--o:0.4"></div>
+          <div class="star" style="top:50%;left:30%;--d:4s;--o:0.3"></div>
+        </div>
+        <!-- symbol grid bg -->
+        <div class="symbol-grid">
+          <span>☽</span><span>✦</span><span>♈</span><span>✦</span><span>☾</span>
+          <span>★</span><span>♊</span><span>☥</span><span>♌</span><span>★</span>
+          <span>♏</span><span>✦</span><span>∞</span><span>✦</span><span>♓</span>
+          <span>★</span><span>♑</span><span>☥</span><span>♒</span><span>★</span>
+          <span>☽</span><span>✦</span><span>♉</span><span>✦</span><span>☾</span>
+        </div>
+        <div class="infinity-center">∞</div>
+        <!-- outer ring -->
+        <div style="position:absolute;width:260px;height:260px;border-radius:50%;border:1px solid var(--gold);opacity:0.2;animation:spin 30s linear infinite;"></div>
+        <div style="position:absolute;width:200px;height:200px;border-radius:50%;border:1px solid var(--violet);opacity:0.3;animation:counter-spin 20s linear infinite;"></div>
+      </div>
+      <div class="card-info">
+        <div class="card-series">Symbol Series · Drop 01</div>
+        <div class="card-name">ETERNAL GATE</div>
+        <div class="card-desc">The infinity mark as a celestial portal. Sacred symbols orbit the loop — INFINETT's core mark treated as divine geometry.</div>
+        <div class="card-tags">
+          <span class="tag glow">Celestial</span>
+          <span class="tag gold-tag">Sacred Geo</span>
+          <span class="tag">Star Field</span>
+          <span class="tag hot">Signature</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESIGN 3: PHARAOH FIRE -->
+    <div class="design-card">
+      <div class="design-canvas d3-bg">
+        <div class="hex-grid"></div>
+        <div class="pharaoh-bust" style="z-index:2;position:relative;">
+          <span class="pharaoh-crown">𓂀</span>
+          <div class="eye-of-ra">☥</div>
+          <div class="pharaoh-face">
+            INFINETT<br>
+            <span style="font-size:10px;color:var(--fire);letter-spacing:8px">ETERNAL REIGN</span>
+          </div>
+        </div>
+        <div class="fire-base"></div>
+        <!-- drip from top -->
+        <div style="position:absolute;top:0;left:10%;width:4px;height:60px;background:linear-gradient(180deg,var(--violet),transparent);border-radius:0 0 4px 4px;opacity:0.6;"></div>
+        <div style="position:absolute;top:0;left:35%;width:3px;height:40px;background:linear-gradient(180deg,var(--magenta),transparent);border-radius:0 0 4px 4px;opacity:0.5;"></div>
+        <div style="position:absolute;top:0;left:60%;width:5px;height:70px;background:linear-gradient(180deg,var(--violet),transparent);border-radius:0 0 4px 4px;opacity:0.6;"></div>
+        <div style="position:absolute;top:0;left:80%;width:3px;height:45px;background:linear-gradient(180deg,var(--magenta),transparent);border-radius:0 0 4px 4px;opacity:0.4;"></div>
+      </div>
+      <div class="card-info">
+        <div class="card-series">Zodiac × Pharaoh · Drop 02</div>
+        <div class="card-name">RISE OF RA</div>
+        <div class="card-desc">Ancient Egyptian authority collides with streetwear chaos. The Ankh burns, drip reigns from above — divinity in flames.</div>
+        <div class="card-tags">
+          <span class="tag gold-tag">Pharaoh</span>
+          <span class="tag hot">Fire</span>
+          <span class="tag">Ancient</span>
+          <span class="tag glow">Graffiti Drip</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESIGN 4: COMBINED DROP -->
+    <div class="design-card">
+      <div class="design-canvas d4-bg">
+        <!-- chaos stripes -->
+        <div class="chaos-layers">
+          <div class="chaos-stripe" style="background:var(--acid);top:20%;transform:rotate(-3deg);"></div>
+          <div class="chaos-stripe" style="background:var(--magenta);top:40%;transform:rotate(2deg);"></div>
+          <div class="chaos-stripe" style="background:var(--violet);top:60%;transform:rotate(-1.5deg);"></div>
+          <div class="chaos-stripe" style="background:var(--gold);top:75%;transform:rotate(3deg);"></div>
+        </div>
+        <div class="combined-text">
+          <span class="line1">INFINETT</span>
+          <span class="line2">NO<br>LIMIT</span>
+          <span class="line3">Zodiac · Symbol · Infinite</span>
+          <div class="combined-symbols">
+            <span style="--d:2s">♈</span>
+            <span style="--d:2.5s">∞</span>
+            <span style="--d:3s">☥</span>
+            <span style="--d:3.5s">✦</span>
+            <span style="--d:2.2s">♏</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-info">
+        <div class="card-series">Combined Drop · Capsule</div>
+        <div class="card-name">NO LIMIT CAPSULE</div>
+        <div class="card-desc">A unifying drop that anchors both series — diagonal chaos stripes, zodiac glyphs, and the infinity mark in one statement graphic.</div>
+        <div class="card-tags">
+          <span class="tag hot">Capsule</span>
+          <span class="tag glow">Crossover</span>
+          <span class="tag gold-tag">Anchor Piece</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BLUEPRINT SPECS -->
+<div class="section">
+  <div class="section-label">03 — Design Specs</div>
+  <div class="section-title">Blueprint Breakdown</div>
+
+  <div class="blueprint-grid">
+    <div class="bp-cell" style="background:#0f0f1a;">
+      <div class="bp-label">Core Motifs</div>
+      <div class="bp-value">6 Elements</div>
+      <div class="bp-detail">
+        Dollar Sign (Wealth Icon)<br>
+        Luxury Monogram Pattern<br>
+        Graffiti Drip Typography<br>
+        Classic Bust / Idol<br>
+        Premium Brand Shield<br>
+        Open Flame Base
+      </div>
+    </div>
+    <div class="bp-cell" style="background:#100010;">
+      <div class="bp-label">INFINETT Additions</div>
+      <div class="bp-value">4 Upgrades</div>
+      <div class="bp-detail">
+        Zodiac Orbit Ring<br>
+        Infinity Symbol (Core Mark)<br>
+        Sacred Geometry Grid<br>
+        Celestial Star Field
+      </div>
+    </div>
+    <div class="bp-cell" style="background:#100800;">
+      <div class="bp-label">Print Direction</div>
+      <div class="bp-value">3 Formats</div>
+      <div class="bp-detail">
+        Front Chest: Symbol / Logo<br>
+        Back Print: Full Scene<br>
+        Sleeve: Zodiac Ring Detail<br><br>
+        Printful / DTG compatible
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">INFINETT</div>
+  <div class="footer-sub">Beyond time · Beyond limits · The collection</div>
+</footer>
+
+</body>
+</html>
