@@ -17,6 +17,6 @@ async def get_db():
 
 
 async def init_db():
-    from backend.models import Task, Reminder, ResearchEntry, ChatMessage  # noqa
+    from backend.models import Task, Reminder, ResearchEntry, ChatMessage, Notification  # noqa
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)

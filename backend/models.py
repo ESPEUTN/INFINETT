@@ -46,3 +46,15 @@ class ChatMessage(Base):
     role: Mapped[str] = mapped_column(String(20))  # user / assistant
     content: Mapped[str] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+
+class Notification(Base):
+    __tablename__ = "notifications"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    title: Mapped[str] = mapped_column(String(200))
+    body: Mapped[str | None] = mapped_column(Text, nullable=True)
+    type: Mapped[str] = mapped_column(String(50), default="reminder")
+    read: Mapped[bool] = mapped_column(Boolean, default=False)
+    reference_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
