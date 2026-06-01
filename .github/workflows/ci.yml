@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Syntax check all Python files
+        run: |
+          python -m py_compile backend/main.py
+          python -m py_compile backend/models.py
+          python -m py_compile backend/database.py
+          python -m py_compile backend/agent.py
+          python -m py_compile backend/email_sender.py
+          python -m py_compile backend/scheduler.py
+          python -m py_compile backend/routes/tasks.py
+          python -m py_compile backend/routes/reminders.py
+          python -m py_compile backend/routes/research.py
+          python -m py_compile backend/routes/reports.py
+          python -m py_compile backend/routes/chat.py
+          python -m py_compile backend/routes/calendar.py
+          python -m py_compile backend/routes/notifications.py
+
+      - name: Verify app imports cleanly
+        run: python -c "from backend.main import app; print('✅ App import OK')"
+        env:
+          ANTHROPIC_API_KEY: dummy-key-for-ci
+
+      - name: Check frontend HTML is valid
+        run: python -c "
+          from html.parser import HTMLParser
+          class V(HTMLParser): pass
+          V().feed(open('frontend/app.html').read())
+          print('✅ HTML parse OK')
+          "
+
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: lint-and-test
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t infinett-agent .
+
+      - name: Smoke-test container starts
+        run: |
+          docker run -d --name test-agent \
+            -e ANTHROPIC_API_KEY=dummy \
+            -e PORT=8000 \
+            -p 8000:8000 \
+            infinett-agent
+          sleep 6
+          curl -f http://localhost:8000/health || (docker logs test-agent && exit 1)
+          docker stop test-agent
